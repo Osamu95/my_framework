@@ -9,16 +9,16 @@ LIB_DIR="lib"
 PROJET_DIR="/home/itu/jo/S4/Web-dyn/Sprint/Test/lib"
 SERVLET_API_JAR="$LIB_DIR/servlet-api.jar"
 
-# Vérifier que le dossier Servlet existe
-if [ ! -d "Servlet" ]; then
-    echo "❌ Dossier 'Servlet' introuvable dans $(pwd)"
+# Vérifier que le dossier my_framework existe
+if [ ! -d "my_framework" ]; then
+    echo "❌ Dossier 'my_framework' introuvable dans $(pwd)"
     exit 1
 fi
 
-# Trouver tous les fichiers .java dans Servlet (et sous-dossiers)
-JAVA_FILES=$(find Servlet -name "*.java")
+# Trouver tous les fichiers .java dans my_framework (et sous-dossiers)
+JAVA_FILES=$(find my_framework -name "*.java")
 if [ -z "$JAVA_FILES" ]; then
-    echo "❌ Aucun fichier .java trouvé dans Servlet"
+    echo "❌ Aucun fichier .java trouvé dans my_framework"
     exit 1
 fi
 
