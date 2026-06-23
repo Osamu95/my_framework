@@ -1,14 +1,14 @@
-package Utils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.net.*;
-import java.text.Annotation;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+package utilities;
 
 import Annotation.AnnotationController;
+import Annotation.UrlMapping;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.net.*;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class Utils {
  public static List<Class<?>> chargerClasses(String nomPackage) throws IOException, ClassNotFoundException {
@@ -68,5 +68,43 @@ public class Utils {
             }
         }
         return ListClasses;
+    }
+
+    /*
+    public static List<Mapping> getAnnotationMethods(List<Class<?>> classes ){
+        List<Mapping> ListMappé = new ArrayList<>();
+        for (Class<?> clazz : classes) {
+            if(clazz.isAnnotationPresent(AnnotationController.class)){
+                Method[] tabMethods = clazz.getDeclaredMethods();
+                for(Method met : tabMethods){
+                    if(met.isAnnotationPresent(UrlMapping.class)){       
+                        UrlMapping annotation = met.getAnnotation(UrlMapping.class);
+                        String urlValue = annotation.url();
+                        ListMappé.add(new Mapping(clazz, met.getName()));
+                        
+                    }
+                }
+            }
+        }
+        return ListMappé;
+    }
+    */
+
+    public static Map<String,Mapping> get_url_allowed(List<Class<?>> classes){
+        Map<String,Mapping> map_list = new HashMap<>();
+        for (Class<?> clazz : classes) {
+            if(clazz.isAnnotationPresent(AnnotationController.class)){
+                Method[] tabMethods = clazz.getDeclaredMethods();
+                for(Method met : tabMethods){
+                    if(met.isAnnotationPresent(UrlMapping.class)){       
+                        UrlMapping annotation = met.getAnnotation(UrlMapping.class);
+                        String urlValue = annotation.url();
+                        Mapping map = new Mapping(clazz, met.getName());
+                        map_list.put(urlValue,map);
+                    }
+                }
+            }
+        }
+        return map_list;
     }
 }
